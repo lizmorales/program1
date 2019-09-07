@@ -1,0 +1,191 @@
+/* ------------------------------------------------
+   main.cpp
+   Program 1: Print UIC
+   
+   Class: CS 141, Fall 2019. Tues 2pm lab
+   System: Codio
+   Author: Liz Morales
+   
+*/
+
+#include <iostream>   // For cin and cout
+#include <cstdlib>    // For system("clear") used to clear the screen
+#include <chrono>     // Used in pausing for some milliseconds using sleep_for(...)
+#include <thread>     // Used in pausing for some milliseconds using sleep_for(...)
+using namespace std;
+
+//---------------------------------------------------------------------------
+//  Main loop
+int main() {
+	char userInputCharacter;   // User input for some character
+    
+    char yOrn;                 //User input for yes or no clear screen
+    int numLetters;            //User input for sets of letters 
+    int numBlanks;             //User input for number of blanks
+    int counterU =0;           // Counter for u
+    int counterI=0;            // Counter for i
+    int counterC=0;            // Counter for c
+	
+	cout << endl
+		 << "Go Flames! Choose from among the following options: \n"
+		 << "   1. Display U I C as horizontal block letters  \n"
+		 << "   2. Display U I C as vertical block letters \n"
+	     << "   3. Display U I C as an animation \n"
+         << "   4. Exit the program \n"
+		 << "Your choice -> ";
+	cin >> userInputCharacter;
+	cout << endl;
+	
+	// Handle the "Exit" option
+	if( userInputCharacter == '4') 
+    {
+		exit( -1);
+	}
+	
+	// Display UIC as horizontal block letters
+	else if( userInputCharacter == '1') 
+    {
+		cout << " ------------------------\n\n"
+             << " *     *  ****     * *    \n"
+			 << " *     *   **    *      \n"
+			 << " *     *   **   *       \n"
+			 << " *     *   **   *       \n"
+			 << " *     *   **    *     \n"
+             << "   * *    ****     * *   \n\n"
+             << " ------------------------\n"
+			 << endl;
+	}
+    
+    // Display UIC as vertical block letters
+    else if (userInputCharacter == '2')
+    {
+            cout    << "-------\n"<<endl;
+			cout    << "*     *"<<endl;
+			cout	<< "*     *"<<endl;
+			cout	<< "*     *"<<endl;
+			cout	<< "*     *"<<endl;
+			cout	<< "*     *"<<endl;
+            cout	<< "  * *" <<endl;
+        
+            cout    << "\n";
+        
+			cout << " ****"<<endl;
+			cout << "  **"<<endl;
+			cout << "  **"<<endl;
+			cout << "  **"<<endl;
+			cout << "  **"<<endl;
+            cout << " ****" <<endl;
+        
+            cout << "\n";
+                
+            cout << "   * *"<<endl;
+            cout << " *  "<<endl;
+			cout << "*  "<<endl;
+			cout << "*  "<<endl;
+			cout << " *  "<<endl;
+            cout << "   * *\n";
+            cout << "-------";
+
+				cout << endl;
+    
+    }
+	
+	// Display UIC as an animation
+	else if( userInputCharacter == '3') 
+    {
+        
+        cout << "Clear the screen between displays? (Y/N) -> ";
+        cin >> yOrn;
+        cout << endl;
+        if ((yOrn == 'y') || (yOrn == 'Y'))
+        {
+                // Clear the screen after the letters are displayed.
+                this_thread::sleep_for(chrono::milliseconds( 185));	// Sleep for 185 milliseconds
+                system( "clear");   // Clear the screen.  Comment out this line if you don't want them erased.
+        }
+        
+        cout << "How many sets of letters? -> ";
+        cin >> numLetters;
+        cout << endl;
+        
+		cout << "How many blanks between letters (0..30) -> ";
+		cin >> numBlanks;
+        cout << endl;
+		
+		for( int setsOfLetters = 0; setsOfLetters < numLetters; setsOfLetters++) {
+			
+			// Display some number of blank lines.  This starts as a large number the first time, then
+			// gets smaller each subsequent time, moving the ENTIRE set of letters vertically.
+			for( int numberOfBlankLines = numLetters; numberOfBlankLines > setsOfLetters; numberOfBlankLines--) 
+            {
+                //cout << "\n";
+				cout << endl;
+			}
+			
+			// Display one set of letters, going through and printing one "slice" of each letter at a time.
+			int i =counterI; //set i to counterI
+            int c =counterC; //set c to counterC
+            
+            for( int u=0; u<9; u++) {
+                   if (u == 0) cout << "       ";
+                else if( u==1) cout << "       ";
+				else if( u==2) cout << "*     *";
+				else if( u==3) cout	<< "*     *";
+				else if( u==4) cout	<< "*     *";
+				else if( u==5) cout	<< "*     *";
+				else if( u==6) cout	<< "*     *";
+                else if( u==7) cout	<< "  * *  ";
+                else if( u==8) cout << "       ";
+                else if( u==9) cout << "       ";
+                
+                   if (i == 0) cout << "      ";
+                else if( i==1) cout << "      ";
+				else if( i==2) cout << " ****";
+				else if( i==3) cout << "  **  ";
+				else if( i==4) cout << "  **  ";
+				else if( i==5) cout << "  **  ";
+				else if( i==6) cout << "  **  ";
+                else if( i==7) cout << " ****";
+                else if( i==8) cout << "      ";
+                else if( i==9) cout << "      ";
+                
+                   if (c == 0) cout << "      ";
+                else if( c==1) cout << "      ";
+                else if( c==2) cout << "    * *";
+				else if( c==3) cout << "  *  ";
+				else if( c==4) cout << " *  ";
+				else if( c==5) cout << " *  ";
+				else if( c==6) cout << "  *  ";
+                else if( c==7) cout << "   * *";
+                else if( c==8) cout << "      ";
+                else if( c==9) cout << "      ";
+                
+                i++; //increments i by 1
+                c++; //increments c by 1
+                
+
+				cout << endl;
+			} //end for( int u...)
+            counterU++;
+            counterI++;
+            counterC++;
+            
+            if(counterU > 2)
+            {
+                counterU=0;
+            }
+            if (counterI > 2)
+            {
+                counterI=0;
+            }
+            if (counterC >2)
+            {
+                counterC =0;
+            }
+			
+		}//end for( int setsOfLetters...
+		
+	}//end else if( userInputCharacter == '3' ...
+	
+    return 0;
+}//end main()
